@@ -2,22 +2,22 @@
  * Manages all game audio including background music, sound effects, and mute state persistence.
  */
 class SoundManager {
-  backgroundMusic = new Audio("audio/elpolloloco-background-music.mp3");
-  bottleThrowSound = new Audio("audio/throwing-bottle.mp3");
-  bottleShatterSound = new Audio("audio/bottle-shattering.mp3");
-  chickenSound = new Audio("audio/chicken-sound.mp3");
-  smallChickenSound = new Audio("audio/chicken-small-sound.mp3");
-  snoreSound = new Audio("audio/snore-sound.mp3");
-  smashSound = new Audio("audio/smash-sound.mp3");
-  coinCollectSound = new Audio("audio/coin-collect.mp3");
-  winSound = new Audio("audio/win-sound.mp3");
-  gameOverSound = new Audio("audio/game-over-sound.mp3");
-  ouchSound = new Audio("audio/ouch-sound.mp3");
-  endbossGrowlSound = new Audio("audio/endboss-growl.mp3");
-  endbossChickenSound = new Audio("audio/endboss-chicken-sound.mp3");
-  jumpSound = new Audio("audio/jump.mp3");
-  landingSound = new Audio("audio/landing.mp3");
-  deathScreamSound = new Audio("audio/death-scream.mp3");
+  backgroundMusic = new Audio("audio/audio_elpolloloco-background-music.mp3");
+  bottleThrowSound = new Audio("audio/audio_throwing-bottle.mp3");
+  bottleShatterSound = new Audio("audio/audio_bottle-shattering.mp3");
+  chickenSound = new Audio("audio/audio_chicken-sound.mp3");
+  smallChickenSound = new Audio("audio/audio_chicken-small-sound.mp3");
+  snoreSound = new Audio("audio/audio_snore-sound.mp3");
+  smashSound = new Audio("audio/audio_smash-sound.mp3");
+  coinCollectSound = new Audio("audio/audio_coin-collect.mp3");
+  winSound = new Audio("audio/audio_win-sound.mp3");
+  gameOverSound = new Audio("audio/audio_game-over-sound.mp3");
+  ouchSound = new Audio("audio/audio_ouch-sound.mp3");
+  endbossGrowlSound = new Audio("audio/audio_endboss-growl.mp3");
+  endbossChickenSound = new Audio("audio/audio_endboss-chicken-sound.mp3");
+  jumpSound = new Audio("audio/audio_jump.mp3");
+  landingSound = new Audio("audio/audio_landing.mp3");
+  deathScreamSound = new Audio("audio/audio_death-scream.mp3");
 
   isMusicMuted = false;
   isSoundsMuted = false;
