@@ -1,0 +1,293 @@
+/* ===================== MOBILE SPECIFICS ===================== */
+
+/* Rotate Device Overlay */
+#rotate-device-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+
+.rotate-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.phone-icon {
+  animation: rotatePhone 2s ease-in-out infinite;
+}
+
+.phone-icon svg {
+  fill: #f5a623;
+}
+
+@keyframes rotatePhone {
+  0% {
+    transform: rotate(0deg);
+  }
+  45% {
+    transform: rotate(-90deg);
+  }
+  55% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Mobile Controls */
+#mobile-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 15;
+}
+
+.mobile-left,
+.mobile-right {
+  display: flex;
+  gap: 15px;
+  pointer-events: all;
+}
+
+.mobile-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  transition:
+    transform 0.1s ease,
+    background 0.2s ease;
+}
+
+.mobile-btn:active {
+  transform: scale(0.9);
+  background: rgba(245, 166, 35, 0.6);
+}
+
+.mobile-btn svg {
+  width: 35px;
+  height: 35px;
+  fill: #fff;
+}
+
+.mobile-btn img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+/* Mobile Menu Overlay */
+#mobile-menu-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu-content {
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #f5a623;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 200px;
+}
+
+.mobile-menu-content button {
+  font-family: "Rye", sans-serif;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.mobile-menu-content button:hover {
+  background: rgba(245, 166, 35, 0.3);
+  border-color: #f5a623;
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+@media only screen and (max-width: 720px) {
+  html,
+  body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #game-container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 720 / 480;
+  }
+
+  #btn-start,
+  #btn-restart,
+  #btn-home {
+    font-size: 22px;
+    padding: 10px 36px;
+  }
+
+  #secondary-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #secondary-buttons button {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+
+  .menu-button {
+    font-size: 14px;
+    padding: 6px 16px;
+  }
+
+  .dialog-box {
+    padding: 20px 18px 16px;
+  }
+
+  .dialog-box h2 {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  html,
+  body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1,
+  .button-container {
+    display: none;
+  }
+
+  body {
+    justify-content: center;
+    align-items: center;
+  }
+
+  #game-container {
+    height: 100vh;
+    width: 100vw;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../img/wallpaper.png");
+    background-size: cover;
+    background-position: center;
+  }
+
+  canvas {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+  }
+}
+
+/* Show/Hide logic */
+@media (pointer: coarse) {
+  #mobile-controls {
+    display: flex;
+  }
+
+  #hover-bar {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  #btn-more-hover {
+    display: flex !important;
+  }
+
+  #btn-fullscreen {
+    display: none !important;
+  }
+}
+
+@media (orientation: portrait) and (max-width: 1024px) {
+  html,
+  body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #rotate-device-overlay {
+    display: flex;
+  }
+}
+
+@media (orientation: landscape) or (min-width: 1025px) {
+  #rotate-device-overlay {
+    display: none;
+  }
+}
+
+/* Ensure mobile controls are hidden on desktop unless forced */
+@media (pointer: fine) {
+  #mobile-controls {
+    display: none;
+  }
+}
