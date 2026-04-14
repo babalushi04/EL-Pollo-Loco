@@ -1,0 +1,227 @@
+@font-face {
+    font-family: "Rye";
+    src: url("fonts/Rye/Rye-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: "Rye", sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-position: center;
+    background-size: cover;
+    background-image: url("img/wallpaper.png");
+}
+
+h1 {
+    color: antiquewhite;
+    font-size: 48px;
+    white-space: nowrap;
+    -webkit-text-stroke-width: 0.3px;
+    -webkit-text-stroke-color: black;
+    text-shadow: 4px 4px 8px rgba(126, 126, 126, 0.902);
+}
+
+/* ===================== GAME CONTAINER ===================== */
+
+#game-container {
+    position: relative;
+    width: 720px;
+    height: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 1);
+}
+
+canvas {
+    background-color: rgb(94, 94, 94);
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===================== MENU BUTTONS (UNTER DEM CANVAS) ===================== */
+
+.main-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    z-index: 5;
+}
+
+.menu-button {
+    font-size: 18px;
+    padding: 8px 24px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.menu-button:hover {
+    background: rgba(245, 166, 35, 0.8);
+    border-color: #f5a623;
+    transform: scale(1.05);
+}
+
+.menu-button:active {
+    transform: scale(0.97);
+}
+
+/* ===================== BUTTONS ===================== */
+
+#btn-start,
+#btn-restart,
+#btn-home,
+#btn-restart-win,
+#btn-home-win {
+    font-family: "Rye", sans-serif;
+    font-size: 28px;
+    padding: 12px 48px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(180deg, #f5a623 0%, #e08e0b 50%, #c67a00 100%);
+    box-shadow:
+        0 4px 15px rgba(245, 166, 35, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: 1px;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+#btn-start:hover,
+#btn-restart:hover,
+#btn-home:hover,
+#btn-restart-win:hover,
+#btn-home-win:hover {
+    transform: scale(1.06);
+    box-shadow:
+        0 6px 25px rgba(245, 166, 35, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+#btn-start:active,
+#btn-restart:active,
+#btn-home:active,
+#btn-restart-win:active,
+#btn-home-win:active {
+    transform: scale(0.97);
+}
+
+#btn-restart-hover.disabled,
+#btn-mute-music.disabled,
+#btn-mute-sounds.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
+#secondary-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#secondary-buttons button {
+    font-family: "ZABRAS", sans-serif;
+    font-size: 16px;
+    padding: 8px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+#secondary-buttons button:hover {
+    background: rgba(245, 166, 35, 0.5);
+    border-color: #f5a623;
+    transform: scale(1.05);
+}
+
+#secondary-buttons button:active {
+    transform: scale(0.97);
+}
+
+/* Fullscreen Button */
+
+#btn-fullscreen {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+#btn-fullscreen:hover {
+    background: rgba(245, 166, 35, 0.5);
+    transform: scale(1.1);
+}
+
+#btn-fullscreen img {
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) invert(1);
+}
+
+/* ===================== FULLSCREEN STATE ===================== */
+
+#game-container:fullscreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    border-radius: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#game-container:fullscreen canvas {
+    border-radius: 0;
+}
+
+@media (max-width: 1024px) {
+    .dialog-box h2 {
+        font-size: 9vw;
+    }
+}
