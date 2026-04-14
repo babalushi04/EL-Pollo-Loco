@@ -1,12 +1,329 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" translate="no">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EL Pollo Loco</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/components.css" />
+    <link rel="stylesheet" href="styles/mobile.css" />
+    <title>El Pollo Loco</title>
+    <script src="models/sound.class.js"></script>
+    <script src="models/drawable-object.class.js"></script>
+    <script src="models/moveable-object.class.js"></script>
+    <script src="models/status-bar.class.js"></script>
+    <script src="models/bottle-bar.class.js"></script>
+    <script src="models/boss-bar.class.js"></script>
+    <script src="models/coin-bar.class.js"></script>
+    <script src="models/character.class.js"></script>
+    <script src="models/chicken.class.js"></script>
+    <script src="models/small-chicken.class.js"></script>
+    <script src="models/cloud.class.js"></script>
+    <script src="models/bottle.class.js"></script>
+    <script src="models/coin.class.js"></script>
+    <script src="models/health-heart.class.js"></script>
+
+    <script src="models/background-object.class.js"></script>
+    <script src="models/keyboard.class.js"></script>
+    <script src="models/level.class.js"></script>
+    <script src="models/throwable-object.class.js"></script>
+    <script src="models/endboss.class.js"></script>
+    <script src="levels/level1.js"></script>
+    <script src="models/collision-handler.class.js"></script>
+    <script src="models/world.class.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/landing.js"></script>
 </head>
+
 <body>
-    
+    <h1>El Pollo Loco</h1>
+
+    <div id="rotate-device-overlay">
+        <div class="rotate-content">
+            <div class="phone-icon">
+                <svg viewBox="0 0 24 24" width="60" height="60">
+                    <path
+                        d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z" />
+                </svg>
+            </div>
+            <p>Please rotate your device to landscape mode!</p>
+        </div>
+    </div>
+
+    <div class="main-content-wrapper">
+        <div id="game-container">
+            <canvas id="canvas" width="720" height="480"></canvas>
+
+            <div id="hover-bar">
+                <button id="btn-home-hover" onclick="goHome()" onfocus="this.blur()" title="Home">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                </button>
+                <button id="btn-restart-hover" class="disabled" onclick="restartGame()" onfocus="this.blur()"
+                    title="Restart">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+                    </svg>
+                </button>
+                <button id="btn-mute-music" class="disabled" onclick="toggleMusic()" onfocus="this.blur()"
+                    title="Mute Music">
+                    <svg class="unmuted-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+                    </svg>
+                    <svg class="muted-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M4.27 3L3 4.27l9 9v.28c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73L19.73 21 21 19.73 4.27 3zM14 7h4V3h-6v5.18l2 2V7z" />
+                    </svg>
+                </button>
+                <button id="btn-mute-sounds" class="disabled" onclick="toggleSounds()" onfocus="this.blur()"
+                    title="Mute Sounds">
+                    <svg class="unmuted-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                    </svg>
+                    <svg class="muted-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                    </svg>
+                </button>
+                <button id="btn-more-hover" onclick="toggleMobileMenu()" onfocus="this.blur()" title="More Options">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                    </svg>
+                </button>
+            </div>
+
+            <div id="game-over-screen" class="hidden">
+                <div id="game-over-content">
+                    <div class="game-over-buttons">
+                        <button id="btn-restart" onclick="restartGame()" onfocus="this.blur()">
+                            Restart Game
+                        </button>
+                        <button id="btn-home" onclick="goHome()" onfocus="this.blur()">Home Screen</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="win-screen" class="hidden">
+                <div id="win-content">
+                    <div class="game-over-buttons">
+                        <button id="btn-restart-win" onclick="restartGame()" onfocus="this.blur()">
+                            Restart Game
+                        </button>
+                        <button id="btn-home-win" onclick="goHome()" onfocus="this.blur()">
+                            Home Screen
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="start-screen">
+                <div id="start-screen-content">
+                    <div id="start-buttons">
+                        <button id="btn-start" onclick="startGame()">Start Game</button>
+                    </div>
+                    <button id="btn-fullscreen" onclick="toggleFullscreen()" title="Fullscreen">
+                        <img src="img/fullscreen.svg" alt="Fullscreen" id="fullscreen-icon" />
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="mobile-controls" class="hidden">
+            <div class="mobile-left">
+                <button id="btn-mobile-left" class="mobile-btn" type="button" title="Move Left">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
+                    </svg>
+                </button>
+                <button id="btn-mobile-right" class="mobile-btn" type="button" title="Move Right">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mobile-right">
+                <button id="btn-mobile-throw" class="mobile-btn" type="button" title="Throw Bottle">
+                    <img src="img/6_salsa_bottle/salsa_bottle.png" alt="Throw">
+                </button>
+                <button id="btn-mobile-jump" class="mobile-btn" type="button" title="Jump">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu-overlay" class="hidden" onclick="toggleMobileMenu()">
+            <div class="mobile-menu-content" onclick="event.stopPropagation()">
+                <button onclick="openDialog('story-dialog'); toggleMobileMenu()">Story</button>
+                <button onclick="openDialog('imprint-dialog'); toggleMobileMenu()">Imprint</button>
+                <button onclick="openDialog('terms-dialog'); toggleMobileMenu()">Terms of Use</button>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <div class="menu-button" onclick="openDialog('instructions-dialog')">
+                How to Play
+            </div>
+            <div class="menu-button" onclick="openDialog('controls-dialog')">
+                Controls
+            </div>
+            <div class="menu-button" onclick="openDialog('story-dialog')">
+                Story
+            </div>
+            <div class="menu-button" onclick="openDialog('imprint-dialog')">
+                Imprint
+            </div>
+            <div class="menu-button" onclick="openDialog('terms-dialog')">
+                Terms of Use
+            </div>
+        </div>
+    </div>
+
+    <div id="instructions-dialog" class="dialog-overlay" onclick="closeDialogOnBackdrop(event, 'instructions-dialog')">
+        <div class="dialog-box">
+            <button class="dialog-close" onclick="closeDialog('instructions-dialog')">
+                &times;
+            </button>
+            <h2>How to Play</h2>
+            <div class="dialog-content">
+                <p>
+                    Navigate Pepe through the desert to defeat the
+                    <strong>evil chicken boss</strong>!
+                </p>
+                <ul>
+                    <li><strong>Move</strong> through the level using arrow keys</li>
+                    <li><strong>Jump</strong> on enemies to squash them</li>
+                    <li>
+                        <strong>Collect bottles</strong> dropped by defeated enemies
+                    </li>
+                    <li>
+                        <strong>Throw bottles</strong> at the Endboss to defeat him
+                    </li>
+                    <li>
+                        <strong>Watch your health bar</strong> — avoid getting hit!
+                    </li>
+                </ul>
+                <p>
+                    Reach the end of the level and defeat the boss chicken to win!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="controls-dialog" class="dialog-overlay" onclick="closeDialogOnBackdrop(event, 'controls-dialog')">
+        <div class="dialog-box">
+            <button class="dialog-close" onclick="closeDialog('controls-dialog')">
+                &times;
+            </button>
+            <h2>Keyboard Controls</h2>
+            <div class="dialog-content">
+                <div class="controls-grid">
+                    <div class="control-item">
+                        <span class="key">←</span>
+                        <span class="control-label">Move Left</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">→</span>
+                        <span class="control-label">Move Right</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key space">SPACE</span>
+                        <span class="control-label">Jump</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">D</span>
+                        <span class="control-label">Throw Bottle</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="story-dialog" class="dialog-overlay" onclick="closeDialogOnBackdrop(event, 'story-dialog')">
+        <div class="dialog-box">
+            <button class="dialog-close" onclick="closeDialog('story-dialog')">
+                &times;
+            </button>
+            <h2>The Story</h2>
+            <div class="dialog-content">
+                <p class="story-text">
+                    In the scorching deserts of Mexico, <strong>Pepe</strong> — a
+                    brave adventurer — discovers that the local chicken population has
+                    gone completely <em>loco</em>!
+                </p>
+                <p class="story-text">
+                    Led by a giant, fearsome <strong>Boss Chicken</strong>, the
+                    poultry army is terrorizing the countryside! Armed only with his
+                    wits and an unlimited supply of <strong>salsa bottles</strong>,
+                    Pepe must fight his way through hordes of crazy chickens.
+                </p>
+                <p class="story-text">
+                    Can you help Pepe defeat <strong>El Pollo Loco</strong> and
+                    restore peace to the desert? 🌵🐔
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="imprint-dialog" class="dialog-overlay" onclick="closeDialogOnBackdrop(event, 'imprint-dialog')">
+        <div class="dialog-box">
+            <button class="dialog-close" onclick="closeDialog('imprint-dialog')">
+                &times;
+            </button>
+            <h2>Imprint</h2>
+            <div class="dialog-content imprint-content">
+                <h3>Angaben gemäß § 5 DDG</h3>
+                <p>
+                    Virxhin Bytyqi<br />
+                    Regensburger Str. 2<br />
+                    93197 Zeitlarn
+                </p>
+
+                <h3>Vertreten durch:</h3>
+                <p>Virxhin Bytyqi</p>
+
+                <h3>Kontakt:</h3>
+                <p>
+                    E-Mail: <a href="mailto:xhini95@gmail.com">xhini95@gmail.com</a>
+                </p>
+
+                <div class="imprint-footer">
+                    <p>
+                        Impressum erstellt mit dem kostenlosen Impressum-Generator
+                        auf<br />
+                        <a target="_blank" href="https://impressum-generator.de/"
+                            rel="dofollow">impressum-generator.com</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-dialog" class="dialog-overlay" onclick="closeDialogOnBackdrop(event, 'terms-dialog')">
+        <div class="dialog-box">
+            <button class="dialog-close" onclick="closeDialog('terms-dialog')">
+                &times;
+            </button>
+            <h2>Terms of Use</h2>
+            <div class="dialog-content">
+                <p>
+                    All sound effects used in this game are sourced from
+                    <a href="https://pixabay.com/sound-effects/" target="_blank">Pixabay</a>
+                    and are used according to their terms.
+                </p>
+                <p>They are free to use for this project.</p>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
