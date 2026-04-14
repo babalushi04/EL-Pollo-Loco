@@ -1,11 +1,5 @@
 # 🐔 El Pollo Loco - Developer Akademie Projekt
 
-![El Pollo Loco](img/favicon.svg)
-
-Ein unterhaltsames **2D-Action-Platformer-Spiel** im Browser entwickelt mit **Vanilla JavaScript** und **HTML5 Canvas**. Begleite Pepe durch die mexikanische Wüste und besiege die böse Chickenbande!
-
----
-
 ## 📖 Inhalt
 
 - [Features](#-features)
@@ -32,16 +26,6 @@ Ein unterhaltsames **2D-Action-Platformer-Spiel** im Browser entwickelt mit **Va
 ✅ **Vollbildmodus** für intensiveres Spielerlebnis  
 ✅ **Mehrere HUD-Elemente** (Health, Bottle, Boss, Coin Bars)  
 ✅ **Speicherung von Einstellungen** via localStorage  
-
----
-
-## 🎮 Spielgeschichte
-
-In der glühenden mexicanischen Wüste entdeckt der mutige Abenteurer **Pepe**, dass die lokale Hühnerpopulation komplett **verrückt** geworden ist!
-
-Unter der Führung eines gigantischen, furchteinflößenden **Boss-Huhns** terrorisiert die Geflügel-Armee die Gegend. Mit nur seinem Verstand und einem unbegrenzten Vorrat an **Salsa-Flaschen** bewaffnet, muss sich Pepe durch Hordes von verrückten Hühnern kämpfen.
-
-Kannst du Pepe helfen, **El Pollo Loco** zu besiegen und den Frieden in der Wüste wiederherzustellen? 🌵
 
 ---
 
@@ -91,32 +75,6 @@ Kannst du Pepe helfen, **El Pollo Loco** zu besiegen und den Frieden in der Wüs
 - **Rechte Pfeile** → Rechts bewegen
 - **Oben Pfeil** → Springen
 - **Flasche Button** → Werfen
-
----
-
-## 🎯 Gameplay
-
-### Ziel
-Navigiere Pepe durch die Wüstenlevel und besiege **El Pollo Loco** (den Boss), um zu gewinnen!
-
-### Gegner
-- 🐔 **Normale Hühner** - Das Fußvolk der Chickenbande
-- 🐤 **Kleine Hühner** - Schneller und agiler
-- 🐔 **El Pollo Loco (Boss)** - Der Endgegner mit viel Gesundheit
-
-### Sammelbare Items
-- 🍾 **Flaschen** - Werfen Sie diese auf Gegner, besonders auf den Boss
-- 💰 **Münzen** - Sammeln Sie sie für Punkte
-- ❤️ **Herzen** - Erhöhen Sie Ihre Gesundheit
-
-### Spielmechaniken
-1. **Auf Gegner springen** - Kleine Hühner können zerquetscht werden
-2. **Flaschen werfen** - Gesammelte Flaschen auf Gegner werfen
-3. **Gegnerenkollision vermeiden** - Die Gesundheit wird reduziert
-4. **Sammeln** - Flaschen und Münzen aufsammeln
-5. **Boss besiegen** - Viele Flaschen auf den Boss werfen
-
----
 
 ## 📁 Projektstruktur
 
@@ -196,19 +154,6 @@ DrawableObject (Basis)
     └── HealthHeart
 ```
 
-### Wichtige Klassen
-
-| Klasse | Beschreibung |
-|--------|-------------|
-| **World** | Verwaltet Spielloop, alle Objekte und Kollisionen |
-| **CollisionHandler** | Erkennt und behandelt Kollisionen |
-| **Character** | Der Spielercharakter (Pepe) |
-| **Level** | Definiert Gegner, Hintergründe und Layout |
-| **Keyboard** | Verwaltet Tastatureingaben |
-| **SoundManager** | Verwaltet Musik und Sound-Effekte |
-
----
-
 ## 🔊 Sound Management
 
 Das Spiel verfügt über ein umfassendes Sound-System mit:
@@ -247,13 +192,6 @@ Das Spiel ist vollständig **mobile-optimiert**:
 - **RequestAnimationFrame** - Optimierte Game Loop
 - **LocalStorage API** - Speicherung von Benutzereinstellungen
 
-### Browser Compatibility
-- ✅ Chrome/Chromium (neueste)
-- ✅ Firefox (neueste)
-- ✅ Safari (neueste)
-- ✅ Edge (neueste)
-
----
 
 ## 🎓 Developer Akademie Projekt
 
@@ -269,18 +207,6 @@ Dieses Projekt wurde als Teil der **Developer Akademie** entwickelt und demonstr
 
 ---
 
-## 🚀 Mögliche Erweiterungen
-
-- [ ] Mehrere Level mit steigender Schwierigkeit
-- [ ] Power-Up System
-- [ ] Leaderboard und High Score Speicherung
-- [ ] Zusätzliche Gegner-Typen
-- [ ] Boss-Phasen mit verschiedenen Angriffsmustern
-- [ ] Achievements/Badges
-- [ ] Spiel-Einstellungen (Schwierigkeitsgrad, Sprache)
-- [ ] Progressive Web App (PWA)
-
----
 
 ## 📞 Author
 
