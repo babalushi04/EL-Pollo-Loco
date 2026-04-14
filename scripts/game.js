@@ -26,12 +26,10 @@ function init() {
  * @param {KeyboardEvent} event - The keydown event.
  */
 function handleKeyDown(event) {
-  if (event.keyCode == 39) keyboard.RIGHT = true;
-  if (event.keyCode == 37) keyboard.LEFT = true;
-  if (event.keyCode == 38) keyboard.UP = true;
-  if (event.keyCode == 40) keyboard.DOWN = true;
-  if (event.keyCode == 32) keyboard.SPACE = true;
-  if (event.keyCode == 68) keyboard.D = true;
+  if (event.keyCode == 68) keyboard.RIGHT = true;  // D = rechts
+  if (event.keyCode == 65) keyboard.LEFT = true;   // A = links
+  if (event.keyCode == 32) keyboard.SPACE = true;  // SPACE = springen
+  if (event.keyCode == 75) keyboard.D = true;      // K = werfen
 }
 
 /**
@@ -39,12 +37,10 @@ function handleKeyDown(event) {
  * @param {KeyboardEvent} event - The keyup event.
  */
 function handleKeyUp(event) {
-  if (event.keyCode == 39) keyboard.RIGHT = false;
-  if (event.keyCode == 37) keyboard.LEFT = false;
-  if (event.keyCode == 38) keyboard.UP = false;
-  if (event.keyCode == 40) keyboard.DOWN = false;
-  if (event.keyCode == 32) keyboard.SPACE = false;
-  if (event.keyCode == 68) keyboard.D = false;
+  if (event.keyCode == 68) keyboard.RIGHT = false;  // D = rechts
+  if (event.keyCode == 65) keyboard.LEFT = false;   // A = links
+  if (event.keyCode == 32) keyboard.SPACE = false;  // SPACE = springen
+  if (event.keyCode == 75) keyboard.D = false;      // K = werfen
 }
 
 window.addEventListener("keydown", handleKeyDown);
