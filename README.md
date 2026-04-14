@@ -35,29 +35,6 @@
 - Ein moderner Web-Browser (Chrome, Firefox, Safari, Edge)
 - Keine weitere Installation erforderlich!
 
-### Ausführung
-
-1. **Repository klonen oder herunterladen**
-   ```bash
-   git clone <repository-url>
-   cd "EL Pollo Loco"
-   ```
-
-2. **Datei öffnen**
-   - Öffne die `index.html` Datei direkt im Browser
-   - Oder nutze einen lokalen Server:
-   ```bash
-   # Mit Python 3
-   python -m http.server 8000
-   
-   # Mit Node.js (http-server)
-   npx http-server
-   ```
-
-3. **Im Browser navigieren**
-   - Öffne `http://localhost:8000` (oder die entsprechende URL)
-
----
 
 ## ⌨️ Steuerung
 
