@@ -174,17 +174,6 @@ Das Spiel ist vollständig **mobile-optimiert**:
 
 Dieses Projekt wurde als Teil der **Developer Akademie** entwickelt und demonstriert:
 
-✅ **Professionelle Codestruktur** mit Klassendesign  
-✅ **Game Development Grundlagen** - Game Loop, Sprite Management, Kollisionen  
-✅ **DOM-Manipulation** und Event-Handling  
-✅ **Canvas API** für 2D-Grafiken  
-✅ **Responsive Design** für Multiple Gerätetypen  
-✅ **Performance-Optimierung** mit RequestAnimationFrame  
-✅ **User Experience** mit vollständiger UI/UX  
-
----
-
-
 ## 📞 Author
 
 **Virxhin Bytyqi**  
