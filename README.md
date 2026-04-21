@@ -55,28 +55,6 @@
 
 ## 🧬 Klassen & Architektur
 
-### Klassenhierarchie
-
-```
-DrawableObject (Basis)
-├── MovableObject (Basis für bewegliche Objekte)
-│   ├── Character (Pepe)
-│   ├── Chicken (Feind)
-│   ├── SmallChicken (Feind)
-│   ├── Endboss (Boss-Feind)
-│   └── ThrowableObject
-│       └── Bottle (Wurfgegenstand)
-│   
-├── BackgroundObject (Hintergrund)
-├── Cloud (Dekorative Wolken)
-├── Coin (Sammelbare Gegenstände)
-└── StatusBar (HUD-Elemente)
-    ├── BottleBar
-    ├── BossBar
-    ├── CoinBar
-    └── HealthHeart
-```
-
 ## 🔊 Sound Management
 
 Das Spiel verfügt über ein umfassendes Sound-System mit:
