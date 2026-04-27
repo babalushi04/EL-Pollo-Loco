@@ -17,19 +17,15 @@ function initLevel() {
  * @returns {Enemy[]} An array of chicken and endboss objects.
  */
 function getLevelEnemies() {
-  return [
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
-    new SmallChicken(),
-    new SmallChicken(),
-    new SmallChicken(),
-    new SmallChicken(),
-    new SmallChicken(),
-    new Endboss(),
-  ];
+  return [...getNormalChickens(), ...getSmallChickens(), new Endboss()];
+}
+
+function getNormalChickens() {
+  return [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken()];
+}
+
+function getSmallChickens() {
+  return [new SmallChicken(), new SmallChicken(), new SmallChicken(), new SmallChicken(), new SmallChicken()];
 }
 
 /**
@@ -53,45 +49,27 @@ function getLevelClouds() {
  */
 function getLevelBackgroundObjects() {
   return [
-    new BackgroundObject("img/5_background/layers/air.png", -719),
-    new BackgroundObject("img/5_background/layers/3_third_layer/1.png", -719, 0),
-    new BackgroundObject("img/5_background/layers/2_second_layer/1.png", -719, 0),
-    new BackgroundObject("img/5_background/layers/1_first_layer/1.png", -719, 0),
-
-    new BackgroundObject("img/5_background/layers/air.png", 0),
-    new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 0, 0),
-    new BackgroundObject("img/5_background/layers/2_second_layer/2.png", 0, 0),
-    new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 0, 0),
-
-    new BackgroundObject("img/5_background/layers/air.png", 719),
-    new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 719, 0),
-    new BackgroundObject("img/5_background/layers/2_second_layer/1.png", 719, 0),
-    new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 719, 0),
-
-    new BackgroundObject("img/5_background/layers/air.png", 719 * 2),
-    ...getAdditionalBackgrounds(),
+    ...getBackgroundSegment(-719, 1),
+    ...getBackgroundSegment(0, 2),
+    ...getBackgroundSegment(719, 1),
+    ...getBackgroundSegment(719 * 2, 2),
+    ...getBackgroundSegment(719 * 3, 1),
+    ...getBackgroundSegment(719 * 4, 2),
   ];
 }
 
 /**
- * Helper function to provide more background layers to keep the list short.
- * @returns {BackgroundObject[]} An array of background layers.
+ * Creates one full background segment (air + 3 parallax layers) at the given x position.
+ * @param {number} x - The x-coordinate of the segment.
+ * @param {number} variant - The image variant (1 or 2).
+ * @returns {BackgroundObject[]}
  */
-function getAdditionalBackgrounds() {
+function getBackgroundSegment(x, variant) {
   return [
-    new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 719 * 2, 0),
-    new BackgroundObject("img/5_background/layers/2_second_layer/2.png", 719 * 2, 0),
-    new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 719 * 2, 0),
-
-    new BackgroundObject("img/5_background/layers/air.png", 719 * 3),
-    new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 719 * 3, 0),
-    new BackgroundObject("img/5_background/layers/2_second_layer/1.png", 719 * 3, 0),
-    new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 719 * 3, 0),
-
-    new BackgroundObject("img/5_background/layers/air.png", 719 * 4),
-    new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 719 * 4, 0),
-    new BackgroundObject("img/5_background/layers/2_second_layer/2.png", 719 * 4, 0),
-    new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 719 * 4, 0),
+    new BackgroundObject("img/5_background/layers/air.png", x),
+    new BackgroundObject(`img/5_background/layers/3_third_layer/${variant}.png`, x, 0),
+    new BackgroundObject(`img/5_background/layers/2_second_layer/${variant}.png`, x, 0),
+    new BackgroundObject(`img/5_background/layers/1_first_layer/${variant}.png`, x, 0),
   ];
 }
 

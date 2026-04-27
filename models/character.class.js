@@ -117,23 +117,32 @@ class Character extends MoveableObject {
 
     /**
      * Called every frame from World.gameLoop
-     * @param {number} dt 
+     * @param {number} dt
      */
     update(dt) {
         this.updateGravity(dt);
+        this.updateMovementTimer(dt);
+        this.updateWalkingTimer(dt);
+        this.updateStateTimer(dt);
+    }
 
+    updateMovementTimer(dt) {
         this.movementTimer += dt;
         if (this.movementTimer > 1000 / 60) {
             this.handleMovementTick();
             this.movementTimer = 0;
         }
+    }
 
+    updateWalkingTimer(dt) {
         this.walkingTimer += dt;
         if (this.walkingTimer > 100) {
             this.handleWalkingAnimation();
             this.walkingTimer = 0;
         }
+    }
 
+    updateStateTimer(dt) {
         this.stateTimer += dt;
         if (this.stateTimer > 200) {
             this.handleStateAnimation();
@@ -159,6 +168,12 @@ class Character extends MoveableObject {
      * Processes keyboard input to move the character left, right, or jump.
      */
     handleMovement() {
+        this.handleHorizontalMovement();
+        this.handleJump();
+        if (this.world.keyboard.D) this.idleTimer = 0;
+    }
+
+    handleHorizontalMovement() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
@@ -169,11 +184,13 @@ class Character extends MoveableObject {
             this.otherDirection = true;
             this.idleTimer = 0;
         }
+    }
+
+    handleJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
             this.idleTimer = 0;
         }
-        if (this.world.keyboard.D) this.idleTimer = 0;
     }
 
     /**
@@ -213,7 +230,7 @@ class Character extends MoveableObject {
         } else if (this.isAboveGround() && !this.isHurt()) {
             this.playJumpFrame();
             this.idleTimer = 0;
-        } else if (!this.isHurt()) {
+        } else if (!this.isHurt() && !this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
             this.handleIdleAnimation();
         }
     }
@@ -222,14 +239,19 @@ class Character extends MoveableObject {
      * Plays the death animation sequence and triggers the game over screen after completion.
      */
     handleDeathAnimation() {
-        if (!this.isDeadAnimationTriggered) {
-            this.isDeadAnimationTriggered = true;
-            if (typeof soundManager !== 'undefined') soundManager.playDeathScreamSound();
-            this.currentImage = 0;
-            setTimeout(() => {
-                this.world.showGameOverScreen();
-            }, (this.IMAGES_DEAD.length * 200) + 500);
-        }
+        this.triggerDeathSequence();
+        this.playDeathFrame();
+    }
+
+    triggerDeathSequence() {
+        if (this.isDeadAnimationTriggered) return;
+        this.isDeadAnimationTriggered = true;
+        if (typeof soundManager !== 'undefined') soundManager.playDeathScreamSound();
+        this.currentImage = 0;
+        setTimeout(() => this.world.showGameOverScreen(), (this.IMAGES_DEAD.length * 200) + 500);
+    }
+
+    playDeathFrame() {
         if (this.currentImage < this.IMAGES_DEAD.length) {
             this.playAnimation(this.IMAGES_DEAD);
         } else {

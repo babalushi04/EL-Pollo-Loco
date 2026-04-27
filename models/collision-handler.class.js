@@ -106,7 +106,7 @@ class CollisionHandler {
       this.level.collectableObjects.splice(index, 1);
       let newPct = Math.min(this.bottleBar.percentage + 10, 100);
       this.bottleBar.setPercentage(newPct);
-    } else if (item instanceof Coin) {
+    } else if (item instanceof Coin && this.coinBar.percentage < 100) {
       this.collectCoin(index);
     } else if (item instanceof HealthHeart && this.character.energy < 100) {
       this.collectHeart(index);

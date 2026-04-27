@@ -9,10 +9,10 @@ class World extends CollisionHandler {
   ctx;
   keyboard;
   camera_x = 0;
-  statusBar = new StatusBar();
-  bottleBar = new BottleBar();
-  bossBar = new EndbossBar();
-  coinBar = new CoinBar();
+  statusBar = new StatusBar(StatusBar.HEALTH, 40, 10, 100);
+  bottleBar = new StatusBar(StatusBar.BOTTLE, 40, 45, 0);
+  bossBar = new StatusBar(StatusBar.BOSS, 520, 10, 100);
+  coinBar = new StatusBar(StatusBar.COIN, 40, 80, 0);
   bossVisible = false;
   throwableObjects = [];
   throwCooldown = false;
@@ -74,23 +74,33 @@ class World extends CollisionHandler {
    * @param {number} dt - Delta time since last frame
    */
   update(dt) {
+    this.updateGameObjects(dt);
+    this.updateCollisionTimer(dt);
+  }
+
+  updateGameObjects(dt) {
     if (this.character.update) this.character.update(dt);
     this.level.enemies.forEach(e => { if (e.update) e.update(dt); });
     this.level.clouds.forEach(c => { if (c.update) c.update(dt); });
     this.level.collectableObjects.forEach(c => { if (c.update) c.update(dt); });
     this.throwableObjects.forEach(t => { if (t.update) t.update(dt); });
+  }
 
+  updateCollisionTimer(dt) {
     this.collisionTimer += dt;
     if (this.collisionTimer > 1000 / 60) {
-      this.checkCollisions();
-      this.checkThrowObjects();
-      this.checkBottleCollisions();
-      this.checkBottleHitsEnemy();
-      this.checkBottleHitsGround();
-      this.checkBossVisibility();
-      
+      this.runCollisionChecks();
       this.collisionTimer = 0;
     }
+  }
+
+  runCollisionChecks() {
+    this.checkCollisions();
+    this.checkThrowObjects();
+    this.checkBottleCollisions();
+    this.checkBottleHitsEnemy();
+    this.checkBottleHitsGround();
+    this.checkBossVisibility();
   }
 
   /**
@@ -111,6 +121,11 @@ class World extends CollisionHandler {
    */
   checkThrowObjects() {
     if (!this.canThrow()) return;
+    this.throwBottle();
+    this.startThrowCooldown();
+  }
+
+  throwBottle() {
     let xOffset = this.character.otherDirection ? 30 : 60;
     let bottle = new ThrowableObject(
       this.character.x + xOffset,
@@ -119,10 +134,11 @@ class World extends CollisionHandler {
     );
     this.throwableObjects.push(bottle);
     this.bottleBar.setPercentage(this.bottleBar.percentage - 10);
+  }
+
+  startThrowCooldown() {
     this.throwCooldown = true;
-    setTimeout(() => {
-      this.throwCooldown = false;
-    }, 2000);
+    setTimeout(() => { this.throwCooldown = false; }, 2000);
   }
 
   /**
