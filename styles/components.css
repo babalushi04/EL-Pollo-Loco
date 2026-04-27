@@ -197,6 +197,7 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   z-index: 999;
   display: flex;
@@ -213,7 +214,7 @@
 .dialog-overlay.active {
   opacity: 1;
   visibility: visible;
-  pointer-events: all;
+  pointer-events: auto;
 }
 
 .dialog-box {
