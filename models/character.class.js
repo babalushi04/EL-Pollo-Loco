@@ -211,7 +211,7 @@ class Character extends MoveableObject {
         } else if (this.world.isWon) {
             return;
         } else if (this.isAboveGround() && !this.isHurt()) {
-            this.playAnimation(this.IMAGES_JUMPING);
+            this.playJumpFrame();
             this.idleTimer = 0;
         } else if (!this.isHurt()) {
             this.handleIdleAnimation();
@@ -248,6 +248,17 @@ class Character extends MoveableObject {
         } else {
             this.playAnimation(this.IMAGES_IDLE);
         }
+    }
+
+    /**
+     * Selects the correct jump frame based on current vertical speed,
+     * so the animation matches the actual jump arc instead of looping randomly.
+     */
+    playJumpFrame() {
+        const last = this.IMAGES_JUMPING.length - 1;
+        const frameIndex = Math.round((30 - this.speedY) / 60 * last);
+        const clamped = Math.max(0, Math.min(last, frameIndex));
+        this.loadImage(this.IMAGES_JUMPING[clamped]);
     }
 
     /**
