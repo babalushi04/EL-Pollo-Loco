@@ -125,7 +125,7 @@ function getLevelCollectables() {
  * @param {number} startY - The starting Y coordinate.
  */
 function generateCoinsFromGrid(collectables, grid, startX, startY) {
-  const size = 60;
+  const size = 45;
   grid.forEach((row, rowIndex) => {
     row.split("").forEach((char, colIndex) => {
       if (char === "X" || char === ".") {
