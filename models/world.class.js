@@ -111,7 +111,7 @@ class World extends CollisionHandler {
    */
   checkThrowObjects() {
     if (!this.canThrow()) return;
-    let xOffset = this.character.otherDirection ? 0 : 100;
+    let xOffset = this.character.otherDirection ? 30 : 60;
     let bottle = new ThrowableObject(
       this.character.x + xOffset,
       this.character.y + 100,
