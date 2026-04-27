@@ -163,6 +163,8 @@
 
         <div id="mobile-menu-overlay" class="hidden" onclick="toggleMobileMenu()">
             <div class="mobile-menu-content" onclick="event.stopPropagation()">
+                <button onclick="openDialog('instructions-dialog'); toggleMobileMenu()">How to Play</button>
+                <button onclick="openDialog('controls-dialog'); toggleMobileMenu()">Controls</button>
                 <button onclick="openDialog('story-dialog'); toggleMobileMenu()">Story</button>
                 <button onclick="openDialog('imprint-dialog'); toggleMobileMenu()">Imprint</button>
                 <button onclick="openDialog('terms-dialog'); toggleMobileMenu()">Terms of Use</button>
